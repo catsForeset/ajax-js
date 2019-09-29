@@ -119,6 +119,11 @@ onPageScroll 函数，滑动页面事件
      console.log(res);
    }`
 
+onReachBottom 函数，页面上拉触底事件的处理函数
+ `onReachBottom: function () {
+      //上拉触底时输出
+      console.log('onReachBottom')
+    }`
 
 onPullDownRefresh() 函数，监听用户下拉刷新事件。
 需要在app.json的window选项中或页面配置中开启enablePullDownRefresh，也可设置下拉样式
@@ -127,7 +132,30 @@ onPullDownRefresh() 函数，监听用户下拉刷新事件。
      console.log("onPullDownRefresh")
    }`
 
- 
+
+onResize() 屏幕旋转函数
+需要在 app.json 的 window 段中设置 "pageOrientation": "auto" 
+`Page({
+   onResize(res) {
+     res.size.windowWidth // 新的显示区域宽度
+     res.size.windowHeight // 新的显示区域高度
+   }
+ })
+`
+
+自定义事件
+test.wxml
+`<!-- 事件 -->
+   <view id="tapTest" data-hi="weChat" bindtap="tapName">点击查看</view>`
+
+test.js
+`Page({
+   tapName: function(event) {
+       console.log(event);
+     }
+ })
+`
+
  
 
 
