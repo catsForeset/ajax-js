@@ -90,6 +90,16 @@ onLoad 函数，监听页面加载
    }
  })`
  
+onHide 函数，监听页面隐藏
+当用户退出或者离开当前页面，等于做了页面隐藏操作，触发 onHide 函数。
+用真机调试模式可测试当前页面退出小程序时的 onHide 函数。
+`Page({
+     onHide: function () {
+         console.log("用户退出/离开当前页面")
+     }
+ })`
+
+
 onShareAppMessage 函数，用户点击右上角分享
  `Page({
        onShareAppMessage: function (res) {
@@ -114,24 +124,29 @@ onTabItemTap 函数，点击底部tap时触发
    })`
 
 onPageScroll 函数，滑动页面事件
-`onPageScroll: function(res){
-     // 打印出对象，含参数scrollTop,页面在垂直方向已滚动的距离（单位px）
-     console.log(res);
-   }`
+`Page({
+     onPageScroll: function(res){
+          // 打印出对象，含参数scrollTop,页面在垂直方向已滚动的距离（单位px）
+          console.log(res);
+     }
+ })`
 
 onReachBottom 函数，页面上拉触底事件的处理函数
- `onReachBottom: function () {
-      //上拉触底时输出
-      console.log('onReachBottom')
-    }`
+ `Page({
+      onReachBottom: function () {
+            //上拉触底时输出
+            console.log('onReachBottom')
+      }
+  })`
 
 onPullDownRefresh() 函数，监听用户下拉刷新事件。
 需要在app.json的window选项中或页面配置中开启enablePullDownRefresh，也可设置下拉样式
-`onPullDownRefresh: function () {
-    //下拉刷新执行
-     console.log("onPullDownRefresh")
-   }`
-
+`page({
+     onPullDownRefresh: function () {
+         //下拉刷新执行
+          console.log("onPullDownRefresh")
+     }
+ })`
 
 onResize() 屏幕旋转函数
 需要在 app.json 的 window 段中设置 "pageOrientation": "auto" 
