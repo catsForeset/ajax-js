@@ -156,6 +156,38 @@ test.js
  })
 `
 
+引用模块
+- 被引用的模块使用module.exports 或 exports 暴露接口
+- 引用别的模块，在page之前调用被引用模块
+
+common.js
+`function sayHello(name) {
+   console.log('Hello ${name}')
+ }
+ function sayGoodbye(name) {
+   console.log('Goodbye ${name}')
+ }
+ //返回模块通过 module.exports 或 exports 暴露接口
+ module.exports.sayHello = sayHello
+ exports.sayGoodbye = sayGoodbye`
+
+test.js
+`var common = require('common.js')
+ Page({
+   //引入模块
+   // var common = require('common.js') 放在Page之前
+   helloMINA: function() {
+     common.sayHello('MINA')
+   },
+   goodbyeMINA: function() {
+     common.sayGoodbye('MINA')
+   }
+ })`
+ 
+test.wxml
+`<view bindtap="helloMINA">点击查看载入组件</view>`
+
+
  
 
 
