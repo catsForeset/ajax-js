@@ -113,6 +113,19 @@ onTabItemTap 函数，点击底部tap时触发
        }
    })`
 
+onPageScroll 函数，滑动页面事件
+`onPageScroll: function(res){
+     // 打印出对象，含参数scrollTop,页面在垂直方向已滚动的距离（单位px）
+     console.log(res);
+   }`
+
+
+onPullDownRefresh() 函数，监听用户下拉刷新事件。
+需要在app.json的window选项中或页面配置中开启enablePullDownRefresh，也可设置下拉样式
+`onPullDownRefresh: function () {
+    //下拉刷新执行
+     console.log("onPullDownRefresh")
+   }`
 
  
  
