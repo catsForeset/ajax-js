@@ -114,7 +114,7 @@ onShareAppMessage 函数，用户点击右上角分享
        }
    })`
    
-onTabItemTap 函数，点击底部tap时触发
+onTabItemTap 函数，点击底部 tap 时触发
 `Page({
       onTabItemTap(item) {
           console.log(item.index) //tab序号，从0开始
@@ -140,7 +140,7 @@ onReachBottom 函数，页面上拉触底事件的处理函数
   })`
 
 onPullDownRefresh() 函数，监听用户下拉刷新事件。
-需要在app.json的window选项中或页面配置中开启enablePullDownRefresh，也可设置下拉样式
+需要在 app.json 的 window 选项中或页面配置中开启 enablePullDownRefresh，也可设置下拉样式
 `page({
      onPullDownRefresh: function () {
          //下拉刷新执行
@@ -172,8 +172,8 @@ test.js
 `
 
 引用模块
-- 被引用的模块使用module.exports 或 exports 暴露接口
-- 引用别的模块，在page之前调用被引用模块
+- 被引用的模块使用 module.exports 或 exports 暴露接口
+- js 引用别的模块，在 page 之前调用被引用模块
 
 common.js
 `function sayHello(name) {
@@ -201,6 +201,30 @@ test.js
  
 test.wxml
 `<view bindtap="helloMINA">点击查看载入组件</view>`
+
+
+icon 图标
+只需一个 icon 标签即可
+`<icon type="success" size="10" color="red"></icon>`
+
+text 文本和 rich-text 富文本
+
+navigator 导航
+`<view class="btn-area">
+     <navigator url="/pages/navigate/navigate" hover-class="navigator-hover" open-type="navigate">跳转到新页面</navigator>
+     <!-- 如果一个页面在app.json设置成为导航页面，那么它有效的切换方式只有 switchTab -->
+     <navigator url="/pages/index/index" hover-class="navigator-hover" open-type="switchTab">切换 Tab </navigator>
+  </view>`
+
+progress 进度条
+`<!-- active 从页面加载完成后加载进度条动画 -->
+ <progress percent="50" show-info activeColor="red" active="true" />
+ <progress percent="40" stroke-width="12"/>`
+
+image 图片缩放和剪裁
+
+map 地图
+
 
 
  
