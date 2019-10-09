@@ -202,6 +202,129 @@ test.wxml
 `<view bindtap="helloMINA">点击查看载入组件</view>`
 
 # 表单
+表单内常包括：button 按钮，input 输入框，textarea 多行输入框，radio 单选项，checkbox 多选项，switch 开关选择器，slider 滑块，picker 底部弹起滚动选择器，label 标签，editor 富文本编辑器
+
+test.wxml
+ `<form bindsubmit="formSubmit" bindreset="formReset">
+       <view class="section section_gap">
+         <view class="section_title">switch</view>
+         <!-- 开关选择器 switch -->
+         <switch name="switch"></switch>
+       </view>
+       <view class="section section_gap">
+         <view class="section_title">slider</view>
+         <!-- 滑块 slider -->
+         <slider name="slider" show-value></slider>
+       </view>
+       <view class="section">
+         <view class="section_title">input</view>
+         <!-- 输入框 input -->
+         <input name="input" placeholder="please input here" type="text" confirm-type="done"></input>
+       </view>
+       <view class="section section_gap">
+         <view class="section_title">radio</view>
+         <!-- 单选项 radio  -->
+         <radio-group name="radio group">
+           <label><radio value="radio1"></radio>radio1</label>
+           <label><radio value="radio2"></radio>radio2</label>
+         </radio-group>
+       </view>
+       <view class="section section_gap">
+         <view class="section_title">checkbox</view>
+         <!-- 多选项 checkbox -->
+         <checkbox-group name="checkbox">
+           <label><checkbox value="checkbox1" />checkbox1</label>
+           <label><checkbox value="checkbox2" />checkbox2</label>
+         </checkbox-group>
+       </view>
+       <view class="btn-area">
+         <!-- 按钮 button -->
+         <button form-type="submit">Submit</button>
+         <button form-type="reset">Reset</button>
+       </view>
+     </form>`
+   
+test.js
+`Page({
+     formSubmit: function(e) {
+         console.log(e)
+         console.log('表单数据：',e.detail.value)
+      }
+ })`
+ 
+多行输入框 textarea
+
+`<view class="section">
+     <textarea bindblur="bindTextAraeBlur" auto-height placeholder="自动变高"></textarea>
+   </view>
+   <view class="section">
+     <textarea placeholder="placeholder颜色是红色的" placeholder-style="color:red"></textarea>
+   </view>
+   <view class="section">
+     <textarea placeholder="自动聚焦" focus="true"></textarea>
+   </view>`
+   
+底部弹起选择器 piker
+test.wxml
+`<view class="divLine"></view>
+   <view class="section">
+     <view class="section_title">普通选择器</view>
+     <!-- range表示选择范围，index表示选择了range的第几个，index从0开始 -->
+     <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+       <view class="picker">
+         当前选择：{{array[index]}}
+       </view>
+     </picker>
+   </view>
+   <view class="section">
+     <view class="section_title">多列选择器</view>
+     <!-- 选择器的mode属性定义了选择器类型，默认是普通选择器selector -->
+     <picker mode="multiSelector" bindchange="bindMultiPickerChange" value="{{multiIndex}}" range="{{multiArray}}">
+       <view class="picker">
+         当前选择：{{multiArray[0][multiIndex[0]]}},{{multiArray[1][multiIndex[1]]}},{{multiArray[2][multiIndex[2]]}}
+       </view>
+     </picker>
+   </view>
+   <view class="section">
+     <view class="section_title">日期选择器</view>
+     <!-- start 和 end 控制日期可选范围，其他日期段显示但是不可选,value/start/end 的格式为YYYY-MM-DD-->
+     <picker mode="date" bindchange="bindDateChange" value="{{date}}" start="2015-01-01" end="2020-01-01">
+       <view class="picker">
+         当前选择：{{date}}
+       </view>
+     </picker>
+   </view>
+   <view class="section">
+     <view class="section_title">时间选择器</view>
+     <!-- value/start/end 的格式为hh:mm -->
+     <picker mode="time" bindchange="bindTimeChange" value="{{time}}" start="00:00" end="23:59">
+       <view class="picker">
+         当前选择：{{time}}
+       </view>
+     </picker>
+   </view>
+   <view class="section">
+     <view class="section_title">多列选择器</view>
+     <!-- 自动加载全国的省市区,，选择后返回一个包含省市区的一维数组。custom-item 可为省市区的顶部添加一个自定义项 -->
+     <picker mode="region" bindchange="bindRegionChange" value="{{region}}" custom-item="{{customItem}}">
+       <view class="picker">
+         当前选择：{{region[0]}},{{region[1]}},{{region[2]}}
+       </view>
+     </picker>
+   </view>`
+   
+test.js
+` Page({
+     data:{
+         index:0,
+         multiIndex:[0,0,0],
+         multiArray:[['无脊柱动物','脊柱动物'],['扁性动物','线性动物','环节动物','软体动物','节肢动物'],['猪肉涤虫','吸血虫']],
+         date: '2019-01-01',
+         time: '09:00',
+         region: ['广东省','广州市','海珠区'],
+     }
+  })`
+ 
  
 # 一些视图组件
 icon 图标
