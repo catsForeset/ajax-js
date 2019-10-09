@@ -75,7 +75,7 @@ test.wxml
     },
   })`
  
- # .js函数
+ # js函数
  
 onLoad 函数，监听页面加载
 `Page({
@@ -198,16 +198,38 @@ test.js
      common.sayGoodbye('MINA')
    }
  })`
- 
 test.wxml
 `<view bindtap="helloMINA">点击查看载入组件</view>`
 
-
+# 表单
+ 
+# 一些视图组件
 icon 图标
-只需一个 icon 标签即可
+只需一个 icon 标签即可，type 属性控制icon类型
 `<icon type="success" size="10" color="red"></icon>`
 
 text 文本和 rich-text 富文本
+test.wxml
+`<text>{{text}}</text>
+<rich-text nodes="{{nodes}}" bindtap="bindRichText"></rich-text>`
+
+test.js
+`Page({
+     data: {
+         text: 'This is text'
+         nodes:[{
+           name: 'div',
+           attrs: {
+             class: 'div-class',
+             style: 'line-height:60px; color:red;'
+           },
+           children: [{
+             type: 'text',
+             text: 'Hello World!'
+           }]
+         }],
+     }
+ })`
 
 navigator 导航
 `<view class="btn-area">
@@ -222,8 +244,37 @@ progress 进度条
  <progress percent="40" stroke-width="12"/>`
 
 image 图片缩放和剪裁
+用 mode 属性控制图片的缩放和剪裁模式
+`<image style="width:200px;height:200px;background-color:#eee" mode="scaleToFill" src="../resources/images/timg2.jpg"></image>`
 
 map 地图
+makers 是地图标志点。polyline 是地图路线。当地图视野发生变化（拖动、缩放），bindregionchange 会返回变化的相关参数。
+test.wxml
+`<map id="map" longitude="120.21201" latitude="30.2084" markers="{{markers}}" polyline="{{polyline}}" bindmarkertap="markertap" bindregionchange="regionchange"></map>`
+
+test.js
+`Page({
+     markers: [{
+       iconPath:'../resources/images/timg3.jpg',
+       id:0,
+       longitude: 120.21201,
+       latitude: 30.2084,
+       width:30,
+       height:40
+     }],
+     polyline: [{
+       points: [{
+         longitude: 120.21201,
+         latitude: 30.2084,
+       },{
+           longitude: 120.51201,
+           latitude: 30.5084,
+       }],
+       color: "#FF0000DD",
+       width: 2,
+       dottedLine: true
+     }]
+ })`
 
 
 
