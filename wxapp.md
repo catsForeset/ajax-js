@@ -574,6 +574,70 @@ api.js
      })
  }`
 
+### 顶部导航栏 navigation 和下拉刷新
+app.json 的 windows 参数设置全局的导航栏。页面导航栏控制当前页面导航栏的显示。
+
+api.js   
+`//导航栏加载动画,控制页面加载时导航栏的 loading 标识显示时长
+onLoad: function (options) {
+     wx.showNavigationBarLoading()
+     setTimeout(function () {
+       wx.hideNavigationBarLoading({
+         success (res) {
+           console.log(res)
+         },
+         complete (res) {
+           console.log(res)
+         },
+         fail (res) {
+           console.log(res)
+         }
+       })
+     },2000)
+     //设置导航栏标题
+     wx.setNavigationBarTitle({
+       title: '动态标题',
+     })
+     //设置导航栏颜色
+     wx.setNavigationBarColor({
+       frontColor: '#ffffff',
+       backgroundColor: '#0000ff',
+       animation: {
+         duration: 400,
+         timingFunc: 'easeIn'
+       }
+     })
+     //隐藏返回首页按钮
+     //真机调试模式，在非主页的页面，导航栏左边会有返回主页按钮
+     //在ide调试 hideHomeButton 报错，真机模式调试则不会报错
+     wx.hideHomeButton({
+       success (res) {
+         console.log(res)
+       },
+       fail (res) {
+         console.log(res)
+       }
+      })
+ }`
+
+### wx.setBackgroundTextStyle()
+
+api.js
+`onLoad: function (options) {
+ //设置下拉背景字体、loading 样式
+     //在ide环境下会报错，真机的环境下不会报错
+     wx.setBackgroundTextStyle({
+       textStyle: 'dark',
+       complete (res) {
+         console.log(res)
+       }
+     })
+ }`
+
+    
+
+
+
 
 
 
