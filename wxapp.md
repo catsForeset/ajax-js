@@ -316,6 +316,7 @@ test.wxml
 test.js
 ` Page({
      data:{
+         array:[1,2,3,4,5,6,7],
          index:0,
          multiIndex:[0,0,0],
          multiArray:[['无脊柱动物','脊柱动物'],['扁性动物','线性动物','环节动物','软体动物','节肢动物'],['猪肉涤虫','吸血虫']],
@@ -398,9 +399,116 @@ test.js
        dottedLine: true
      }]
  })`
-
-
-
  
+ # API
+ ## 基础api
+ ### wx.getSystemInfo() 和 wx.getSystemInfoSync()
+ 获取系统信息，包括用户手机型号、屏幕长宽、微信版本、用户对微信使用手机功能的权限设置（如摄像机、通讯录等）等
+ 
+ api.js
+`onLoad: function (options) {
+     wx.getSystemInfo({
+       success: function(res) {
+         console.log(res)
+       },
+     })
+     try{
+       const res = wx.getSystemInfoSync()
+       console.log(res)
+     } catch (e) {
+       console.log('catch error')
+     }
+ }`
+ 
+### wx.getUpdateManager()
+检查小程序更新和查看更新结果
 
+api.js
+`onLoad: function (options) {
+     const updateManager = wx.getUpdateManager()
+     console.log(updateManager)
+     updateManager.onCheckForUpdate(function (res) {
+       console.log(res)
+     })
+ }
+`
+
+### wx.setEnableDebug() 和 console
+打开、关闭调试和打印日志或报错
+
+api.js
+`onLoad: function (options) {
+ wx.setEnableDebug({
+   //打开/关闭调试
+   enableDebug: true,//false
+ })
+ console.info('info log')
+ //输出错误日志，相当于一条 error 报错
+ console.error('error log')
+ console.info('warn log')`
+
+
+### setTimeout() 和 setInterval()
+定时器
+
+api.js
+`onLoad: function (options) {
+     var that = this
+     //interval 每隔一个时间周期执行一次回调函数
+     var interval = setInterval(function() {
+       //在定时器使用 this ，会返回 windows 对象
+       that.setData({
+         timeOut: that.data.timeOut + 1
+       })
+     },1000)
+     //timeout 设定一个定时器，到期执行回调函数
+     var timeout = setTimeout(function() {
+       that.setData({
+         timeOut: 10000
+       })
+       clearInterval(interval)
+     },10000)
+     //取消定时器
+     // clearTimeout(timeout)
+ }`
+
+
+### 路由
+路由，对应视图 navigator 组件的 open-type 属性
+
+api.js
+`pages({
+   bindRoute: function() {
+     //跳转到 tabBar 页面，并关闭其他所有非 tabBar 页面
+     // wx.switchTab({
+     //   url: '/pages/index/index',
+     // })
+     //关闭所有页面，打开到应用内的某个页面
+     // wx.reLaunch({
+     //   url: '/pages/index/index',
+     // })
+     //关闭当前页面，跳转到应用内的某个页面。不允许跳转到 tabbar
+     // wx.redirectTo({
+     //   url: '/pages/navigate/navigate',
+     // })
+     // 保留当前页面，跳转到应用内的某个页面。但是不能跳到 tabbar 页面。
+     wx.navigateTo({
+       url: '/pages/navigate/navigate',
+     })
+   }
+ })`
+
+api.wxml
+`<view bindtap="bindRoute">点击跳转</view>`
+
+navigate.js
+`bindBack: function() {
+   //返回上级页面
+   wx.navigateBack({
+     delta: 3 //返回的页面数
+   })
+ }`
+ 
+navigate.wxml
+`<view bindtap="bindBack">返回上级页面</view>`
 
