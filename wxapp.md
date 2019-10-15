@@ -512,3 +512,68 @@ navigate.js
 navigate.wxml
 `<view bindtap="bindBack">返回上级页面</view>`
 
+### 界面
+### wx.showToast() 和 wx.hideToast()
+显示和关闭消息提示框
+
+api.js
+`onLoad: function (options) {
+     wx.showToast({
+       title: '成功',
+       icon: 'success',
+       duration: 2000
+     })
+     setTimeout(function () {
+       wx.hideToast()
+     }, 1000)
+ }`
+ 
+### wx.showLoading() 和 wx.hideLoading()
+显示和关闭 loading 加载框
+
+api.js
+` onLoad: function (options) {
+  wx.showLoading({
+     title: '加载中',
+   })
+   setTimeout(function () {
+     wx.hideLoading()
+   },2000)
+}`
+
+### wx.showActionSheet()
+操作菜单,从底部弹出选项。返回选择的数组的 index .
+
+api.js
+`onLoad: function (options) {
+     wx.showActionSheet({
+       itemList: ['A', 'B', 'C'],
+       success (res) {
+         console.log(res)
+       },
+       fail (res) {
+         console.log(res.errMsg)
+       }
+     })
+ }`
+### wx.showModal() 
+模拟对话框,即让用户有“是”和“否”选择的弹框。不同的选择对应不同的回调函数
+api.js
+`onLoad: function (options) {
+     //真机模式调试之后，is not a function 报错消失
+     wx.showModal({
+       title: '提示',
+       content: '这是一个模拟对话框',
+       success (res) {
+         if(res.confirm) {
+           console.log('用户点击确定')
+         } else if (res.cancel) {
+           console.log('用户点击取消')
+         }
+       }
+     })
+ }`
+
+
+
+
