@@ -634,6 +634,37 @@ api.js
      })
  }`
 
+### 底部导航栏tabBar
+
+
+## 动画
+官方定义：创建一个动画实例 animation。调用实例的方法来描述动画。最后通过动画实例的 export 方法导出动画数据传递给组件的 animation 属性。
+用代码来拆分一下这个定义，就能理解动画的用法。
+
+api.js
+`Pages({
+   start: function () {
+     //创建一个动画实例 animation。
+     var animation = wx.createAnimation({
+       duration: 4000,
+       timingFunction: 'ease',
+       delay: 1000
+     })
+     //调用实例的方法 animation.opacity() 和 animation.translate() 来描述动画。step() 表示一组动画的完成，完成一组动画内所有动画，下一组动画才会开始。
+     animation.opacity(0.2).translate(100,-100).step()
+     this.setData({
+       //通过动画实例的 export 方法导出动画数据 animate
+       animate: animation.export()
+     })
+   }
+ })`
+
+api.wxml
+`<!-- 动画数据 animate 传递给组件的 animation 属性 -->
+ <view animation="{{animate}}">
+   <text>animation</text>
+ </view>
+ <button bindtap="start">动画</button>`
     
 
 
