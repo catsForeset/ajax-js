@@ -638,6 +638,7 @@ api.js
 
 
 ## 动画
+### 动画使用
 官方定义：创建一个动画实例 animation。调用实例的方法来描述动画。最后通过动画实例的 export 方法导出动画数据传递给组件的 animation 属性。
 用代码来拆分一下这个定义，就能理解动画的用法。
 
@@ -660,11 +661,39 @@ api.js
  })`
 
 api.wxml
-`<!-- 动画数据 animate 传递给组件的 animation 属性 -->
- <view animation="{{animate}}">
-   <text>animation</text>
- </view>
- <button bindtap="start">动画</button>`
+`<view class="container">
+    <!-- 动画数据传递给组件的 animation 属性 -->
+   <view class="animation-view" animation="{{animate}}">
+     <text>animation</text>
+   </view>
+ <button bindtap="start">开始</button></view>`
+ 
+## 动画方法
+动画实例的方法主要有：设置透明度、宽高度，平移、旋转、缩放，等等。
+
+api.js
+`Pages({
+   start: function () {
+     var animation = wx.createAnimation({
+       duration: 1000,
+       timingFunction: 'ease',
+       delay: 1000
+     })
+     //透明度为0.5
+     animation.opacity(0.5).step()
+     //宽高度变化
+     animation.height(100).width(100).step()
+     //向x轴平移和y轴平移
+     animation.translate(100,-100).step()
+     //顺时针旋转并缩放为原来的两倍
+     animation.rotate(90).scale(2).step()
+     this.setData({
+       animate: animation.export()
+     })
+   }
+ })`
+ 
+ 
     
 
 
