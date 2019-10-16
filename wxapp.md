@@ -668,6 +668,13 @@ api.wxml
    </view>
  <button bindtap="start">开始</button></view>`
  
+api.xwss
+`.animation-view{
+   background-color: pink;
+   width: 50%;
+ }`
+
+ 
 ## 动画方法
 动画实例的方法主要有：设置透明度、宽高度，平移、旋转、缩放，等等。
 
@@ -692,6 +699,35 @@ api.js
      })
    }
  })`
+ 
+ 
+## 网络请求
+
+### wx.request()
+request 请求类似于ajax请求
+
+api.js
+`Pages({
+ bindRequest: function() {
+     wx.request({
+       url: 'http://www.mydomain.com/test.php',
+       data: {
+         x: 'data x',
+         y: 'data y'
+       },
+       header: {
+       },
+       success (res) {
+         console.log(res)
+         console.log(res.data)
+       }
+     })
+   }
+ })`
+
+api.wxml
+`<button bindtap="bindRequest">请求数据</button>`
+ 
  
  
     
