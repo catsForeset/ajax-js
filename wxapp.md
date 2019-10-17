@@ -754,6 +754,26 @@ api.js
 ### wx.uploadFile() 和 wx.downloadFile()
 上传和下载请求
 
+api.js
+`Pages({
+   bindDownload: function() {
+     wx.downloadFile({
+       url: 'https://www.image.com/testimge.jpg',
+       success(res) {
+        if (res.statusCode === 200) {
+          //下载图片到本地文件夹，会提示是否打开相册权限
+          wx.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath//wx.downloadFile() 把下载的文件存为临时文件，路径为tempFilePath
+          })
+        }
+       }
+     })
+   }
+ })`
+ 
+api.wxml
+`<button bindtap="bindDownload">下载头像</button>`
+
 
  
  
