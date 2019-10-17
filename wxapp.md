@@ -728,8 +728,8 @@ api.js
 api.wxml
 `<button bindtap="bindRequest">请求数据</button>`
 
-### wx.requestTask()
-同 wx.request() 类似，拥有实例方法比如 requestTask.abort()。
+wx.request() 实例的方法，比如 requestTask.abort()。
+
 api.js
 `Pages({
  bindRequest: function() {
@@ -757,22 +757,27 @@ api.js
 api.js
 `Pages({
    bindDownload: function() {
-     wx.downloadFile({
-       url: 'https://www.image.com/testimge.jpg',
+    const downloadTask = wx.downloadFile({
+       url: 'https://wx.qlogo.cn/mmopen/vi_32/DYAIOgq83ep2GYNYDEK8Vh0lajp3ia4jREVmSRMicVkLbztuIFRicicm7K3a4YcV1ltLPRRK9DLRjpH8IGkF353sKg/132',
        success(res) {
         if (res.statusCode === 200) {
           //下载图片到本地文件夹，会提示是否打开相册权限
           wx.saveImageToPhotosAlbum({
-            filePath: res.tempFilePath//wx.downloadFile() 把下载的文件存为临时文件，路径为tempFilePath
+            filePath: res.tempFilePath //wx.downloadFile() 把下载的文件存为临时文件，路径为tempFilePath
           })
         }
        }
+     })
+    //实例方法,监听下载进度变化事件
+     downloadTask.onProgressUpdate((res) => {
+       console.log('下载进度', res.progress)
      })
    }
  })`
  
 api.wxml
 `<button bindtap="bindDownload">下载头像</button>`
+
 
 
  
