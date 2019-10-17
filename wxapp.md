@@ -704,7 +704,7 @@ api.js
 ## 网络请求
 
 ### wx.request()
-request 请求类似于ajax请求
+request 请求类似于 ajax 请求，只支持 https 请求，并且请求的域名必须设置成小程序后台的 request 参数。微信开发者工具设置不校验 https 则可请求成功。
 
 api.js
 `Pages({
@@ -727,7 +727,34 @@ api.js
 
 api.wxml
 `<button bindtap="bindRequest">请求数据</button>`
+
+### wx.requestTask()
+同 wx.request() 类似，拥有实例方法比如 requestTask.abort()。
+api.js
+`Pages({
+ bindRequest: function() {
+     const requestTask = wx.request({
+       url: 'http://www.mydomain.com/test.php',
+       data: {
+         x: 'data x',
+         y: 'data y'
+       },
+       header: {
+         'content-type': 'application/json'
+       },
+       success(res) {
+         console.log(res)
+         console.log(res.data)
+       }
+     })
+     requestTask.abort()//取消请求任务
+   }
+ })`
  
+### wx.uploadFile() 和 wx.downloadFile()
+上传和下载请求
+
+
  
  
     
