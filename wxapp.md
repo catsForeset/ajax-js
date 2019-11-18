@@ -234,44 +234,44 @@ test.wxml
 test.wxml
  ```html
  <form bindsubmit="formSubmit" bindreset="formReset">
-       <view class="section section_gap">
-         <view class="section_title">switch</view>
-         <!-- 开关选择器 switch -->
-         <switch name="switch"></switch>
-       </view>
-       <view class="section section_gap">
-         <view class="section_title">slider</view>
-         <!-- 滑块 slider -->
-         <slider name="slider" show-value></slider>
-       </view>
-       <view class="section">
-         <view class="section_title">input</view>
-         <!-- 输入框 input -->
-         <input name="input" placeholder="please input here" type="text" confirm-type="done"></input>
-       </view>
-       <view class="section section_gap">
-         <view class="section_title">radio</view>
-         <!-- 单选项 radio  -->
-         <radio-group name="radio group">
-           <label><radio value="radio1"></radio>radio1</label>
-           <label><radio value="radio2"></radio>radio2</label>
-         </radio-group>
-       </view>
-       <view class="section section_gap">
-         <view class="section_title">checkbox</view>
-         <!-- 多选项 checkbox -->
-         <checkbox-group name="checkbox">
-           <label><checkbox value="checkbox1" />checkbox1</label>
-           <label><checkbox value="checkbox2" />checkbox2</label>
-         </checkbox-group>
-       </view>
-       <view class="btn-area">
-         <!-- 按钮 button -->
-         <button form-type="submit">Submit</button>
-         <button form-type="reset">Reset</button>
-       </view>
-     </form>
-     ```
+   <view class="section section_gap">
+     <view class="section_title">switch</view>
+     <!-- 开关选择器 switch -->
+     <switch name="switch"></switch>
+   </view>
+   <view class="section section_gap">
+     <view class="section_title">slider</view>
+     <!-- 滑块 slider -->
+     <slider name="slider" show-value></slider>
+   </view>
+   <view class="section">
+     <view class="section_title">input</view>
+     <!-- 输入框 input -->
+     <input name="input" placeholder="please input here" type="text" confirm-type="done"></input>
+   </view>
+   <view class="section section_gap">
+     <view class="section_title">radio</view>
+     <!-- 单选项 radio  -->
+     <radio-group name="radio group">
+       <label><radio value="radio1"></radio>radio1</label>
+       <label><radio value="radio2"></radio>radio2</label>
+     </radio-group>
+   </view>
+   <view class="section section_gap">
+     <view class="section_title">checkbox</view>
+     <!-- 多选项 checkbox -->
+     <checkbox-group name="checkbox">
+       <label><checkbox value="checkbox1" />checkbox1</label>
+       <label><checkbox value="checkbox2" />checkbox2</label>
+     </checkbox-group>
+   </view>
+   <view class="btn-area">
+     <!-- 按钮 button -->
+     <button form-type="submit">Submit</button>
+     <button form-type="reset">Reset</button>
+   </view>
+ </form>
+  ```
    
 test.js
 ```js
@@ -603,7 +603,7 @@ onLoad: function (options) {
 
 api.js
 ```js
- onLoad: function (options) {
+onLoad: function (options) {
   wx.showLoading({
      title: '加载中',
    })
@@ -846,12 +846,12 @@ Pages({
  ```
  
 ### wx.uploadFile() 和 wx.downloadFile()
-上传和下载请求
+下载请求
+
 api.wxml
 ```html
 <button bindtap="bindDownload">下载头像</button>
 ```
-
 api.js
 ```js
 Pages({
@@ -874,7 +874,9 @@ Pages({
    }
  })
  ```
- 
+
+上传请求
+
 api.wxml
 ```html
 <button bindtap="bindUpload">上传图片</button>
@@ -902,6 +904,11 @@ Pages({
   }
 })
 ```
+
+## webSocket
+WebSocket是一种在单个TCP连接上进行全双工通信的协议。
+WebSocket使得客户端和服务器之间的数据交换变得更加简单，允许服务端主动向客户端推送数据。
+在WebSocket API中，浏览器和服务器只需要完成一次握手，两者之间就直接可以创建持久性的连接，并进行双向数据传输。
 
 
 
