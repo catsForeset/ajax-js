@@ -22,3 +22,5 @@ count用来统计查询到的数据条数之和，比如已支付的订单数量
 > SELECT COUNT(*) FROM table_name WHERE `status`>0
 
 ------------
+连表查询，只取其中一个
+> SELECT o.* order o LEFT JOIN (SELECT * FROM refund GROUP BY orderid) r ON o.id=r.orderid WHERE o.status>0 
