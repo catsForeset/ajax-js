@@ -33,6 +33,9 @@ Sunion [key1] [key2] ……  求集合的并集
 ## Zset有序集合类型
 （命令以z为前缀）
 
+## 一些操作
+config get databases (getDbNum)查看db
+
 
 ## Redis发布和订阅
 （一个订阅号可以给多个用户发布消息）
@@ -57,6 +60,7 @@ https://blog.csdn.net/TCF_JingFeng/article/details/80756617
 4. 重启wamp，phpinfo查看有redis扩展即可。
 5. 安装redis工具https://github.com/microsoftarchive/redis/releases。
 下载压缩即可，安装目录为压缩目录。打开redis方法，一是直接打开redis-server.exe，二是在此目录下的cmd输入redis-server redis.windows.conf打开。使用redis的过程中要一直打开redis应用。
+6. 命令行模式，redis-cli.exe
 
 ## 查看php中的redis类
 
