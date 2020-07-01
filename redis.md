@@ -55,8 +55,8 @@ https://blog.csdn.net/q810391679/article/details/80812578
 https://blog.csdn.net/TCF_JingFeng/article/details/80756617
 
 1. 本地127.0.0.1/phpinfo中查看PHP Extension Build一项，找到对应的值。在https://windows.php.net/downloads/pecl/snaps/redis/ 中下载redis插件。不成功换版本。
-2. 将php_redis.dll和php_redis.pdb文件并复制到php的ext文件夹中。
-3. 将D:\Wamp\bin\apache\apache2.4.33\bin\php.ini和D:\Wamp\bin\php\php5.6.35\php.ini都添加如下内容：extension=php_redis.dll
+2. 将php_redis.dll和php_redis.pdb文件并复制到php的ext文件夹中和apache的bin文件夹中。
+3. 将D:\Wamp\bin\apache\apache2.4.33\bin\php.ini和D:\Wamp\bin\php\php5.6.35\php.ini都添加如下内容：extension=php_redis.dll。如果找不到php.ini文件，显示文件的后缀即可。如果要关闭php，注释掉这个语句即可。
 4. 重启wamp，phpinfo查看有redis扩展即可。
 5. 安装redis工具https://github.com/microsoftarchive/redis/releases。
 下载压缩即可，安装目录为压缩目录。打开redis方法，一是直接打开redis-server.exe，二是在此目录下的cmd输入redis-server redis.windows.conf打开。使用redis的过程中要一直打开redis应用。
