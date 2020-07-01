@@ -5,6 +5,8 @@ Clear 清空面板
 Keys * 列出所有键
 Set [key] [value] 设置键值对
 Get [key] 获取值
+Setbit [key] [offset] [value] 设置偏移量的值,其中offset是偏移量，只能为整型，value是偏移量的位，只能取 0,1.
+Getbit [key] [offset] 获偏移量的值
 Getrange [key] [start] [end] 获取值start到end的字符
 Mget [key] [key] ….. 获取多个值
 Incr [key] 值加1
