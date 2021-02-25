@@ -4,8 +4,11 @@
 ------------
 
 查询某个字段包含某几个字符
-> SELECT * FROM tale_name where title like "%移%值%"
+关键字 LIKE
+> SELECT * FROM tale_name WHERE title LIKE "%移%值%"
 
+关键字 LOCATE
+> SELECT * FROM `goods` WHERE LOCATE('葡萄酒',title)>0;
 ------------
 
 查询出现2（多）次以上的字段
@@ -22,5 +25,5 @@ count用来统计查询到的数据条数之和，比如已支付的订单数量
 > SELECT COUNT(*) FROM table_name WHERE `status`>0
 
 ------------
-连表查询，只取其中一个
+连表查询（一对多），重复id只其中一个
 > SELECT o.* order o LEFT JOIN (SELECT * FROM refund GROUP BY orderid) r ON o.id=r.orderid WHERE o.status>0 
