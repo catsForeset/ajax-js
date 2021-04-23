@@ -47,7 +47,6 @@ ttl [key]  查看当前离 key 过期还有多少秒
 ## 查询
 keys [pattern]  查询符合指定模式的 key 值。如 "keys *" ，查询所有 key 值；"keys w-7*"，查询所有以 w-7 为前缀的所有 key 值。
 
-
 ## 删除key
 del [key]  删除key
 flushdb    清空当前数据库(慎用)
