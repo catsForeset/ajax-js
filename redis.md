@@ -2,7 +2,7 @@
 ## 连接说明
 打开 redis Console 运行界面，每个语句之前都有当前地址和库。比如"127.0.0.1:0> "，代表当前 redis 地址是 "127.0.0.1"，当前 db 是 "0"
 SELECT index  切换db。比如"SELECT 4",则切换到db 4.则当前语句之前是"127.0.0.1:4> "
-
+config get databases 获取 Redis 服务器数据库数量
 
 # Redis类型
 ## String类型
@@ -40,8 +40,18 @@ Sunion [key1] [key2] ……  求集合的并集
 ## Zset有序集合类型
 （命令以z为前缀）
 
-## 一些操作
-config get databases (getDbNum)查看db
+## 过期时间
+expire [key] ][seconds] 设置key过期时间，单位是秒。如果设置秒数为负数，则 key 过期。key 过期后 key 不复存在。
+ttl [key]  查看当前离 key 过期还有多少秒
+
+## 查询
+keys [pattern]  查询符合指定模式的 key 值。如 "keys *" ，查询所有 key 值；"keys w-7*"，查询所有以 w-7 为前缀的所有 key 值。
+
+
+## 删除key
+del [key]  删除key
+flushdb    清空当前数据库(慎用)
+flushall    清除所有数据库(慎用)
 
 
 ## Redis发布和订阅
