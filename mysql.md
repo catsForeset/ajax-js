@@ -29,3 +29,15 @@ count用来统计查询到的数据条数之和，比如已支付的订单数量
 ------------
 数据库时间戳，unix_timestamp()
 SELECT * FROM order WHERE (createtime+24*60*60)>unix_timestamp() ORDER BY createtime DESC LIMIT 10 -- 查询24小时之内下单的订单
+
+字段加前缀
+select t.*，concat('#',t.column_A) as column_A t from table_name where t.id = 'xx';
+
+将多个字段连成一个字段
+select concat (id, name, score) as info from tt2;
+
+将查询数据按逗号分列
+select substring_index(g.cates,',',1);
+
+(select substring_index( substring_index(g.cates,',',1),',',-1)) cates1;
+(select substring_index( substring_index(g.cates,',',2),',',-1)) cates2;
