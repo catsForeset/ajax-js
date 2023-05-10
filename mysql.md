@@ -41,3 +41,5 @@ select substring_index(g.cates,',',1);
 
 (select substring_index( substring_index(g.cates,',',1),',',-1)) cates1;
 (select substring_index( substring_index(g.cates,',',2),',',-1)) cates2;
+
+内查询 union all
