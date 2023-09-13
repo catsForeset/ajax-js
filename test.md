@@ -195,7 +195,7 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 ##### 用命令行运行测试计划
 
-1、jmeter 页面保存上述用户登录测试计划，复制并重命名为test.jmx；
+1、jmeter 页面保存上述用户登录测试计划，复制并重命名为test.jmx（D:\apache-ant-1.9.16\ant\test.jmx）；
 
 2、生成日志文件：在test.jmx 所在目录cmd 输入以下命令：
 
@@ -215,9 +215,13 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 ##### ant插件生成测试报告
 
-1、下载ant插件：官网（https://ant.apache.org/）下载，解压，添加环境变量path D:\apache-ant-1.9.16\bin，cmd 命令行 ant -version，有输出ant版本则安装成功；
+1、下载ant插件：官网（https://ant.apache.org/）下载，解压，添加环境变量path D:\apache-ant-1.9.16\bin，cmd 命令行 ant -version，有输出ant版本则安装成功；（设置build.xml：cmd 输入ant -v，提示build.xml有问题）
 
-2、设置build.xml：cmd 输入ant -v，提示build.xml有问题，设置
+2、jmeter.properties设置：
+
+`jmeter.save.saveservice.output_format=xml`
+
+
 
 
 
