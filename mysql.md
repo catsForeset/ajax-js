@@ -43,3 +43,8 @@ select substring_index(g.cates,',',1);
 (select substring_index( substring_index(g.cates,',',2),',',-1)) cates2;
 
 内查询 union all
+
+打开/关闭mysql
+cmd 管理员身份打开：net start/stop mysql
+
+
