@@ -217,9 +217,23 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 1、下载ant插件：官网（https://ant.apache.org/）下载，解压，添加环境变量path D:\apache-ant-1.9.16\bin，cmd 命令行 ant -version，有输出ant版本则安装成功；（设置build.xml：cmd 输入ant -v，提示build.xml有问题）
 
-2、jmeter.properties设置：
+2、在test.jmx所在目录配置build.xml文件，build.xml文件见jmeter文档；
+
+3、jmeter.properties设置：
 
 `jmeter.save.saveservice.output_format=xml`
+
+4、执行：确保有到test.jmx和build.xml在同一个目录下，当前目录打开cmd，运行：
+
+`ant` 
+
+5、ant运行成功后生成html、jtl、report三个文件夹，html里面打开html文档，是总体测试报告，report报告是详细的报告；
+
+6、如果没有找到文件jmeter.results.shanhe.me.xsl，可以查看附件jmeter文档，或去下载：https://github.com/baozhida/jmeter.bak/blob/master/jmeter.results.shanhe.me.xsl，放到D:\apache-jmeter-5.6.2\extras里面；
+
+
+
+
 
 
 
