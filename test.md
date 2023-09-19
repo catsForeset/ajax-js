@@ -78,7 +78,7 @@
 
 
 
-##### jmeter传参
+##### jmeter传参类型
 
 ###### 一、参数
 
@@ -233,11 +233,55 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 
 
+#### postman
+
+##### 测试理论
+
+1、参数传递正确性、功能正确性；
+
+2、异常情况的容错能力；
+
+3、接口权限、兼容性；
+
+4、正例：正常入参，返回成功
+
+5、反例：鉴权、参数、错误码（有多少错误码就有多少测试用例）、黑名单、接口限制次数、分页、兼容性等；
 
 
 
+##### 测试执行
 
+###### postman组件（从上往下）
 
+一、参数
+
+Params:get请求传参
+Authorization:鉴权
+Headers:请求头
+	accept:客户端接收的数据类型
+	content-type:客户端发送给服务器的数据类型
+	User-agent:客户端的类型
+	xmlhttprequest:异步请求
+	......
+Body: post请求传参
+	none:没有参数
+	form-data:文件上传 (包含键值对和文件上传)
+	x-www-from-urlencodeed:表单请求(键值对)
+	raw:使用原始数据格式请求 (JSON，XML，HTML，Text，Javascript)
+	binary:二进制文件上传。
+Pre-request Script: 请求之前的脚本。
+Tests:请求之后的脚本。
+Settings:设置
+Cookies:postman用于自动管理Cookie的功能
+
+二、响应
+
+Body: 返回的值
+Pretty:以不同的格式查看返回结果
+Raw:以文本格式查看返回结果
+Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应头TestResults:断言的结果
+
+三、调试
 
 
 
