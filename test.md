@@ -281,7 +281,71 @@ Pretty:以不同的格式查看返回结果
 Raw:以文本格式查看返回结果
 Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应头TestResults:断言的结果
 
-三、调试
+###### 接口关联
+
+一、在获取token的接口获取参数，设置全局变量；
+
+1、json方式
+
+2、正则表达式方式
+
+二、在需要token的接口用{{}}获取全局变量的token，请求；
+
+
+
+###### 文件上传
+
+
+
+###### 环境变量和全局变量
+
+1、设置环境变量；
+
+2、在所有接口用{{}}代替不同环境的地址；
+
+3、选择不同的环境；
+
+
+
+###### 动态参数
+
+一、系统自带
+
+1、{{$timestamp}} 动态时间戳
+
+2、{{$randomInt}} 动态0-1000整型数据
+
+3、{{$guid}} 动态guid
+
+二、自定义动态参数
+
+
+
+###### 断言，Test标签
+
+Status code: Code is 200
+Response body: Contains string
+Response body: JSON value check
+Response body: ls equal to a string
+Response headers: Content-Type header check
+Response time is less than 200ms
+Stalus code: Successful POST request
+Status code: Code name has string
+
+检查返回的状态码是否为200
+检查返回的数据中包括有指定的字符串
+检童ison中的其中一个字段的值
+检查返回的值等于一个指定的字符串
+检查是否包含有content-type响应头
+检查请求的时间少于200MS
+检查返回的状态码是否在数组中
+检查状态信息是指定的字符串。
+
+
+
+
+
+
 
 
 
