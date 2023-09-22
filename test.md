@@ -321,8 +321,9 @@ Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应�
 
 
 
-###### 断言，Test标签
+###### *断言，Test标签
 
+一、参数
 Status code: Code is 200
 Response body: Contains string
 Response body: JSON value check
@@ -331,7 +332,6 @@ Response headers: Content-Type header check
 Response time is less than 200ms
 Stalus code: Successful POST request
 Status code: Code name has string
-
 检查返回的状态码是否为200
 检查返回的数据中包括有指定的字符串
 检童ison中的其中一个字段的值
@@ -341,17 +341,35 @@ Status code: Code name has string
 检查返回的状态码是否在数组中
 检查状态信息是指定的字符串。
 
+二、断言
 
 
 
+###### 批量运行
 
 
 
+###### 参数化CSV
+
+1、创建一个csv文件，用excel或notpad打开
+
+2、
 
 
 
+###### 必须待请求头的接口
 
 
+
+###### cookie鉴权
+
+1
+
+###### mock测试
+
+1、postman创建一个mock服务器；
+
+2、
 
 
 
