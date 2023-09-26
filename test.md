@@ -289,6 +289,8 @@ Pretty:以不同的格式查看返回结果
 Raw:以文本格式查看返回结果
 Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应头TestResults:断言的结果
 
+
+
 ###### 接口关联
 
 一、理论：在登录接口获取token，复制下来放到查询接口
@@ -305,27 +307,49 @@ Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应�
 
 1、json方式
 
-1）在登录接口的后置项 Tests写脚本，写测试语句，在postman的底部Console面板查看打印的测试语句；
+1）在登录接口的后置项 Tests写脚本，在postman的底部Console面板查看打印的测试语句，设置token为全局变量，代码如下：
 
+*console.**log**('test'); //测试语句*
+*console.**log**(responseBody); //响应数据*
+*var jsobj **=** JSON.**parse**(responseBody); //响应数据转json*
+*console.**log**(jsobj.access_token); //获取指定token值pm.globals.**set**('token',jsobj.access_token); //将获取的token值设为全局变量*
 
+2）将登录设置的全局变量应用到查询接口
+
+http://localhost:8000/api/auth/me?token={{token}}
+
+或 `Authorization:Bearer {{token}}`
 
 2、正则表达式方式
 
-二、在需要token的接口用{{}}获取全局变量的token，请求；
+1）在登录接口的后置项 Tests写脚本，在postman的底部Console面板查看打印的测试语句，设置token为全局变量，代码如下：
 
+*console.**log**(responseBody); //响应数据*
+*var datas **=** responseBody.**match**(**new** RegExp('"access_token":"(.*?)"')); //匹配正则表达式*
+*console.**log**(datas[1]);*
+*pm.globals.**set**('tokens',datas[1]); //将获取的token值设为全局变量*
 
+2）将登录设置的全局变量应用到查询接口
 
-###### 文件上传
+http://localhost:8000/api/auth/me?token={{tokens}}
+
+或 `Authorization:Bearer {{tokens}}`
 
 
 
 ###### 环境变量和全局变量
 
-1、设置环境变量；
+1、设置环境变量，变量名为ip，设置一个localhost，一个127.0.0.1（理论上是设置一个测试环境一个预发环境）;
+
+![微信图片_20230926141820](E:\my_workplace\ajax-js\jmeter\微信图片_20230926141820.png)
 
 2、在所有接口用{{}}代替不同环境的地址；
 
+如：http://{{ip}}:8000/api/auth/login
+
 3、选择不同的环境；
+
+![微信图片编辑_20230926142341](E:\my_workplace\ajax-js\jmeter\微信图片编辑_20230926142341.jpg)
 
 
 
@@ -356,7 +380,7 @@ Stalus code: Successful POST request
 Status code: Code name has string
 检查返回的状态码是否为200
 检查返回的数据中包括有指定的字符串
-检童ison中的其中一个字段的值
+检查ison中的其中一个字段的值
 检查返回的值等于一个指定的字符串
 检查是否包含有content-type响应头
 检查请求的时间少于200MS
