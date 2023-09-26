@@ -251,6 +251,14 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 ##### 测试执行
 
+###### 接口说明
+
+1、获取 access_token，应用与其他接口；
+
+2、接口类型：获取token，用户的增、删、改、查，用户名不能重复；有cookie应用；
+
+
+
 ###### postman组件（从上往下）
 
 一、参数
@@ -283,9 +291,23 @@ Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应�
 
 ###### 接口关联
 
-一、在获取token的接口获取参数，设置全局变量；
+一、理论：在登录接口获取token，复制下来放到查询接口
+
+1、方式一：将token拼接到地址里
+
+如：http://localhost:8000/api/auth/me?token=tokenvalue
+
+2、方式二：将token放到headers里
+
+如：`Authorization:Bearer tokenvalue`，其中Bearer是token的一种形式，一定要加；
+
+二、在获取token的接口获取参数，设置全局变量；
 
 1、json方式
+
+1）在登录接口的后置项 Tests写脚本，写测试语句，在postman的底部Console面板查看打印的测试语句；
+
+
 
 2、正则表达式方式
 
