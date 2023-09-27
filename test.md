@@ -1,4 +1,6 @@
-##### jmeter 使用
+#### jmeter
+
+##### 安装
 
 1、安装：官网下载安装包，解压（后续步骤同java jdk安装）；
 2、设置环境：设置JMETER_HOME、path。cmd输入jmeter -v提示安装成功；
@@ -7,7 +9,7 @@
 
 
 
-##### jmeter接口请求
+##### 接口请求
 
 1、testplan-右键添加-线程（用户）-线程组，修改名称。一个线程组代表一定的用户；
 2、右键线程组-添加-取样器-http请求，填写接口请求数据；
@@ -18,7 +20,7 @@
 
 
 
-##### jmeter请求组
+##### 请求组
 
 1、线程组右键-添加-配置元件-http请求默认值，填写协议、ip和端口号，作用于当前线程组的所有组件，若挪到http请求下方，则只作用于http请求（父组件），作用域下同；
 2、线程组右键-添加-配置元件-http信息头管理，填写Conten_Type=application/json，统一设置信息头；
@@ -26,7 +28,7 @@
 
 
 
-##### jmeter接口关联，将获取的token用于其他接口
+##### 接口关联，将获取的token用于其他接口
 
 ###### 一、正则表达式提取器
 
@@ -78,7 +80,7 @@
 
 
 
-##### jmeter传参类型
+##### 传参类型
 
 ###### 一、参数
 
@@ -96,7 +98,7 @@
 
 
 
-##### jmeter随机数/参数加密
+##### 随机数/参数加密
 
 ###### 一、随机数
 
@@ -130,7 +132,7 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 
 
-##### jmeter断言
+##### 断言
 
 ###### 一、响应断言
 
@@ -181,7 +183,7 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 
 
-##### jmeter缓存/Cookie鉴权
+##### 缓存/Cookie鉴权
 
 ###### 一、Http Cookie管理器实现Cookie关联的原理
 
@@ -249,9 +251,7 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 
 
-##### 测试执行
-
-###### 接口说明
+##### 接口说明
 
 1、获取 access_token，应用与其他接口；
 
@@ -259,7 +259,7 @@ json：`{"name":"小花","password":"${__digest(md5,111111,,,)}"}`
 
 
 
-###### postman组件（从上往下）
+##### postman组件（从上往下）
 
 一、参数
 
@@ -291,9 +291,9 @@ Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应�
 
 
 
-###### 接口关联
+##### 接口关联
 
-一、理论：在登录接口获取token，复制下来放到查询接口
+###### 一、理论：在登录接口获取token，复制下来放到查询接口
 
 1、方式一：将token拼接到地址里
 
@@ -303,7 +303,7 @@ Preview:以网页格式查看返回结果Cookies:响应的CookieHeaders: 响应�
 
 如：`Authorization:Bearer tokenvalue`，其中Bearer是token的一种形式，一定要加；
 
-二、在获取token的接口获取参数，设置全局变量；
+###### 二、在获取token的接口获取参数，设置全局变量；
 
 1、json方式
 
@@ -333,11 +333,11 @@ http://localhost:8000/api/auth/me?token={{token}}
 
 http://localhost:8000/api/auth/me?token={{tokens}}
 
-或 `Authorization:Bearer {{tokens}}`
+或 `Authorization:Bearer {{token}}`
 
 
 
-###### 环境变量和全局变量
+##### 环境变量和全局变量
 
 1、设置环境变量，变量名为ip，设置一个localhost，一个127.0.0.1（理论上是设置一个测试环境一个预发环境）;
 
@@ -353,9 +353,9 @@ http://localhost:8000/api/auth/me?token={{tokens}}
 
 
 
-###### 动态参数
+##### 动态参数
 
-一、系统自带
+###### 一、系统自带
 
 1、{{$timestamp}} 动态时间戳
 
@@ -363,11 +363,17 @@ http://localhost:8000/api/auth/me?token={{tokens}}
 
 3、{{$guid}} 动态guid
 
-二、自定义动态参数
+4、创建用户接口请求参数：
+
+*{"name":"aaaaa{{$randomInt}}","email":"aaa@mm.com","password":"111111","created_at":{{$timestamp}}}*
+
+###### 二、自定义动态参数
+
+从其他接口获取响应参数作为请求参数
 
 
 
-###### *断言，Test标签
+##### *断言，Test标签
 
 一、参数
 Status code: Code is 200
