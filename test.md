@@ -375,7 +375,8 @@ http://localhost:8000/api/auth/me?token={{tokens}}
 
 ##### *断言，Test标签
 
-一、参数
+###### 一、参数
+
 Status code: Code is 200
 Response body: Contains string
 Response body: JSON value check
@@ -384,20 +385,81 @@ Response headers: Content-Type header check
 Response time is less than 200ms
 Stalus code: Successful POST request
 Status code: Code name has string
-检查返回的状态码是否为200
-检查返回的数据中包括有指定的字符串
-检查ison中的其中一个字段的值
-检查返回的值等于一个指定的字符串
+检查返回的状态码是否为200（常用）
+检查返回的数据中包括有指定的字符串（常用）
+检查json中的其中一个字段的值（常用）
+检查返回的值等于一个指定的字符串（常用）
 检查是否包含有content-type响应头
 检查请求的时间少于200MS
 检查返回的状态码是否在数组中
 检查状态信息是指定的字符串。
 
-二、断言
+###### 二、断言响应码200
+
+1、点击 Status code: Code is 200 ，自动出现相应的代码，其余方式类似：
+
+*pm.**test**("Status code is 200", **function** () {*
+  *pm.response.to.have.status(200);*
+*});*
+
+可修改文字如下：
+
+*pm.**test**("断言响应码为200", **function** () {*
+  *pm.response.to.have.status(200);*
+*});*
+
+2、send 执行接口，在Test Results 面板里可查看到断言结果，通过则为PASS，不通过则为FAIL：
+
+![微信图片_20230927141211](E:\my_workplace\ajax-js\jmeter\微信图片_20230927141211.png)
+
+###### 三、断言响应字符串
+
+*pm.**test**("包含字段access_token", **function** () {*
+  *pm.expect(pm.response.text()).to.include("access_token");*
+*});*
+
+###### 四、断言JSON某字段的值
+
+*pm.**test**("检查json中某字段的值", **function** () {*
+  *var jsonData **=** pm.response.json();*
+  *pm.expect(jsonData.expires_in).to.eql(3600);*
+*});*
+
+###### 五、断言是否返回指定字符串
+
+创建用户接口断言成功，其成功返回结果是如下指定的json字符串，当接口返回参数比较少且变化不大时，用这种方式
+
+*pm.**test**("Body is correct", **function** () {*
+  *pm.response.to.have.body('{"code":111,"msg":"success"}');*
+*});*
+
+###### 六、检查是否有响应头Content-Type
+
+*pm.**test**("检查是否有响应头Content-Type", **function** () {*
+  *pm.response.to.have.header("Content-Type");*
+*});*
+
+###### 七、响应时间是否小于指定值
+
+*pm.**test**("响应时间是否小于200ms", **function** () {*
+  *pm.expect(pm.response.responseTime).to.be.below(200);*
+*});*
+
+###### 八、检查返回的状态码是否在数组中
+
+*pm.**test**("状态码是否在数组[201, 202]中", **function** () {*
+  *pm.expect(pm.response.code).to.be.oneOf([201, 202]);*
+*});*
+
+###### 九、检查状态信息是指定的字符串
+
+*pm.**test**("Status code name has string", **function** () {*
+  *pm.response.to.have.status("ok");*
+*});*
 
 
 
-###### 批量运行
+##### 批量运行
 
 
 
@@ -425,7 +487,8 @@ Status code: Code name has string
 
 
 
-Locust 使用
+#### Locust 使用
+
 1、安装python；
 2、cmd 安装：pip3 install Locust（详细步骤：https://docs.locust.io/en/stable/installation.html#installation）；
 3、参照官网写一个demo locu.py，cmd 运行：locust -f locu.py；
