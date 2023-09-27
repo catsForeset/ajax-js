@@ -461,9 +461,15 @@ Status code: Code name has string
 
 ##### 批量运行
 
+1、项目-Run collection-选择要批量运行的接口，填写执行次数，填写间隔时间，运行
+
+![微信截图_20230927162801](E:\my_workplace\ajax-js\jmeter\微信截图_20230927162801.png)
+
+2、文件上传接口批量运行时会报错，要把上传的文件放在postman默认上传文件夹并且允许操作该文件夹，才能批量上传成功；默认文件夹在设置-settings-general-location里查看，打开Read files outside working directory允许操作文件夹；
 
 
-###### 参数化CSV
+
+##### 参数化CSV
 
 1、创建一个csv文件，用excel或notpad打开
 
