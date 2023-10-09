@@ -471,9 +471,17 @@ Status code: Code name has string
 
 ##### 参数化CSV
 
-1、创建一个csv文件，用excel或notpad打开
+1、创建一个csv或json文件，用excel或notpad打开，写一个正例两个反例（有文档）；
 
-2、
+2、登录接口断言如下
+
+*pm.**test**("包含字段access_token", **function** () {*
+  *pm.expect(pm.response.text()).to.include("access_token");*
+*});*
+
+3、项目-Run collection-选择要批量运行的接口，填写执行次数，填写间隔时间，选择csv或json文件；
+
+![微信图片_20231009112645](E:\my_workplace\ajax-js\jmeter\微信图片_20231009112645.png)
 
 
 
