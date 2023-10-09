@@ -479,13 +479,21 @@ Status code: Code name has string
   *pm.expect(pm.response.text()).to.include("access_token");*
 *});*
 
-3、项目-Run collection-选择要批量运行的接口，填写执行次数，填写间隔时间，选择csv或json文件；
+3、修改登录接口的参数为全局参数
+
+*{"email":"{{email}}","password":"{{password}}"}*
+
+4、项目-Run collection-选择要批量运行的接口，填写执行次数，填写间隔时间，选择csv或json文件；
 
 ![微信图片_20231009112645](E:\my_workplace\ajax-js\jmeter\微信图片_20231009112645.png)
 
+5、如果正常运行的话，三组断言，通过一个失败两个；
 
 
-###### 必须待请求头的接口
+
+
+
+###### 必须带请求头的接口
 
 
 
