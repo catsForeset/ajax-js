@@ -324,10 +324,10 @@ http://localhost:8000/api/auth/me?token={{token}}
 
 1）在登录接口的后置项 Tests写脚本，在postman的底部Console面板查看打印的测试语句，设置token为全局变量，代码如下：
 
-*console.**log**(responseBody); //响应数据*
-*var datas **=** responseBody.**match**(**new** RegExp('"access_token":"(.*?)"')); //匹配正则表达式*
-*console.**log**(datas[1]);*
-*pm.globals.**set**('tokens',datas[1]); //将获取的token值设为全局变量*
+console.**log**(responseBody); //响应数据
+var datas = responseBody.match(new RegExp('"access_token":"(.*?)"')); //匹配正则表达式
+console.**log**(datas[1]);
+pm.globals.set('tokens',datas[1]); //将获取的token值设为全局变量
 
 2）将登录设置的全局变量应用到查询接口
 
@@ -469,7 +469,7 @@ Status code: Code name has string
 
 
 
-##### 参数化CSV
+##### CSV文件断言请求参数
 
 1、创建一个csv或json文件，用excel或notpad打开，写一个正例两个反例（有文档）；
 
@@ -491,21 +491,102 @@ Status code: Code name has string
 
 
 
+##### CSV文件断言返回数据
+
+1、在csv文件加接口返回参数"error";
+
+2、登录接口断言处取全局变量，验证返回参数包含的字符；
+
+pm.test("Body matches string", function () {
+  pm.expect(pm.response.text()).to.include(data.error)
+});
+
+3、项目-Run collection-选择要批量运行的接口，填写执行次数，填写间隔时间，选择csv文件；
+
+4、csv文件有三组数据，都pass就执行成功；
 
 
-###### 必须带请求头的接口
+
+##### 根据返回结果提取数据
+
+1、原则：若返回成功则提取token，失败则不提取；
+
+2、登录接口的断言如下：
+
+if(responseBody.access_token != -1){
+  var datas = responseBody.match(new RegExp('"access_token":"(.?)"')); //匹配正则表达式
+  pm.globals.set('tokens',datas[1]); 
+}
+
+3、postman右上角Environment quick look，将全局变量tokens删除；
+
+4、运行登录接口（获取tokens并设置全局变量），再运行查询接口/查看全局变量看是否成功获取tokens，成功获取则正常；
 
 
 
-###### cookie鉴权
+##### 必须带请求头的接口
 
-1
+1、有些接口要求必须带请求头，在postman可以设置；
 
-###### mock测试
+2、在请求的url下方的Headers里面填入请求头键值对即可；
 
-1、postman创建一个mock服务器；
 
-2、
+
+##### cookie鉴权
+
+1、postman会自动处理cookie；
+
+2、postman请求地址下方的cookie里面可以查看和编辑cookie；
+
+3、删除cookie后重新请求新cookie，获取最新数据；
+
+
+
+##### mock测试
+
+1、作用：当前后端分离，前端可以调用mock数据来代替还未完成的后端接口数据；当调用第三方接口时，第三方接口一般只返回正常数据，可以用mock数据来模拟错误数据；展示demo时，可以用mock数据来实现简单的动态流程；
+
+2、postman创建一个new collection，点击右边三个点选择mock collection，创建mock 服务器，创建完成之后，在postman左边栏出现mock servers 选项；
+
+![微信图片_20231019154918](E:\my_workplace\ajax-js\jmeter\微信图片_20231019154918.png)
+
+3、删除上述testmock，在mock servers再创建如下：
+
+![微信图片_20231019160927](E:\my_workplace\ajax-js\jmeter\微信图片_20231019160927.png)
+
+![微信图片_20231019161024](E:\my_workplace\ajax-js\jmeter\微信图片_20231019161024.png)
+
+4、上述操作后，在左边栏的collection里面自动生成一个testmock，里面包含一个test接口，请求接口，返回test接口编辑的参数；
+
+![微信截图_20231019161412](E:\my_workplace\ajax-js\jmeter\微信截图_20231019161412.png)
+
+5、在浏览器访问test参数，可用postman生成的地址和接口地址拼起来请求；如：https://933904ae-a9ea-4da7-a4d9-4d97a8c3f52c.mock.pstmn.io/test
+
+6、改写test接口参数：test接口右键，选择add example，编辑返回结果，同理也可以编辑请求参数，如下：
+
+![微信截图_20231019162150](E:\my_workplace\ajax-js\jmeter\微信截图_20231019162150.png)
+
+7、接口请求结果更新为上述编辑结果，则操作成功；
+
+8、postman的mockserver每天有访问次数限制，可打通flask 的mock server 来无限访问；
+
+
+
+##### 加密解密
+
+1、接口需要参数base64加密后再大写；
+
+2、写前置脚本：postman  Pre-request 处理参数如下：
+var us = CryptoJS.enc.Utf8.parse("admin") ;
+var pw = CryptoJS.enc.Utf8.parse("123");
+//对转换后的值做Base64加密
+var bs64_us = CryptoJS.enc.Base64.stringify(us);
+var bs64_pw = CryptoJS.enc.Base64.stringify(pw) ;
+//设置为全局变量
+pm.globals.set("bs64_us",bs64_us.toString().toUpperCase());
+pm.globals.set("bs64_pw",bs64_pw.toString().toUpperCase());
+
+
 
 
 
