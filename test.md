@@ -588,7 +588,28 @@ pm.globals.set("bs64_pw",bs64_pw.toString().toUpperCase());
 
 
 
+使用newman
 
+1、安装nodejs，官网一键安装，查看版本
+
+node -v
+npm -v
+
+2、安装newman，用以下命令安装：
+
+npm install -g newman
+
+安装完毕后，查看是否安装成功
+
+newman -v
+
+3、postman调试好接口，导出用例：用例右边操作按钮，选择export，默认导出，命名为test_postman_collection.json
+
+4、导出postman环境变量；
+
+5、导出postman全局变量；
+
+6、cmd命令行执行以上脚本；
 
 #### Locust 使用
 

@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "ea8df7a1-7a62-4860-8112-a05a413e8b89",
+		"name": "测试接口",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3383258"
+	},
+	"item": [
+		{
+			"name": "查用户",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\r",
+							"    \"XSRF-TOKEN\", //此為環境變數名稱\r",
+							"    decodeURIComponent(pm.cookies.get(\"XSRF-TOKEN\"))\r",
+							")\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/find",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查用户 Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\r",
+							"    \"XSRF-TOKEN\", //此為環境變數名稱\r",
+							"    decodeURIComponent(pm.cookies.get(\"XSRF-TOKEN\"))\r",
+							")\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/user/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "用户登录",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"小花\",\"password\":\"111111\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "增用户",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"aaaaa2\",\"email\":\"aaa@mm.com\",\"password\":\"111111\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "改用户",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":1,\"email\":\"luoya@gzxijiu.com\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/edit",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"edit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删用户",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":5}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"delete"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth-登录-token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if(responseBody.search(\"access_token\") != -1){\r",
+							"    var datas = responseBody.match(new RegExp('\"access_token\":\"(.*?)\"')); //匹配正则表达式\r",
+							"    console.log(datas[1]);\r",
+							"    pm.globals.set('tokens',datas[1]); \r",
+							"}\r",
+							"pm.test(\"Body matches string\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(data.error);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"{{email}}\",\"password\":\"{{password}}\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:8000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth-退出登录",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{ip}}:8000/api/auth/logout",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth-查询",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokens}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:8000/api/auth/me?token={{tokens}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"me"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{tokens}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "auth-增",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Body is correct\", function () {\r",
+							"    pm.response.to.have.body('{\"code\":111,\"msg\":\"success\"}');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{tokens}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"aaaaa{{$randomInt}}\",\"email\":\"aaa@mm.com\",\"password\":\"111111\",\"created_at\":{{$timestamp}}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{ip}}:8000/api/auth/setuser",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"auth",
+						"setuser"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "加密",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var us = CryptoJS.enc.Utf8.parse(\"admin\") ;\r",
+							"var pw = CryptoJS.enc.Utf8.parse(\"123\");\r",
+							"//对转换后的值做Base64加密\r",
+							"var bs64_us = CryptoJS.enc.Base64.stringify(us);\r",
+							"var bs64_pw = CryptoJS.enc.Base64.stringify(pw) ;\r",
+							"//设置为全局变量\r",
+							"pm.globals.set(\"bs64_us\",bs64_us.toString().toUpperCase());\r",
+							"pm.globals.set(\"bs64_pw\",bs64_pw.toString().toUpperCase());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/user/passwords?name={{bs64_us}}&password={{bs64_pw}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"passwords"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{bs64_us}}"
+						},
+						{
+							"key": "password",
+							"value": "{{bs64_pw}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
