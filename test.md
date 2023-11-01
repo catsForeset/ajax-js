@@ -611,6 +611,64 @@ newman -v
 
 6、cmd命令行执行以上脚本；
 
+
+
+#### pytest
+
+##### 安装
+
+1、安装python，cmd输入python成功，quit()退出；
+
+2、cmd安装pytest：pip install pytest，安装完成后检查：pytest --version；
+
+
+
+##### 创建项目
+
+1、创建一个python项目，在项目根目录创建一个文件requirements.txt，写入以下内容：
+pytest
+pytest-html
+pytest-xdist
+pytest-ordering
+pytest-rerunfailures
+allure-pytest
+pyyaml
+requests
+
+2、项目的命令行运行以下语句，加入插件：pip install -r requirements.txt，若不成功，多试几次，有时候外网网速慢，会有中断的情况。成功后再python的虚拟环境venv里面可以看到对应的插件；
+
+
+
+##### 添加实例
+
+1、规则：模块名必须以test-开头或以-test 结尾，测试类必须以Test开头且不能有init方法，测试类必须以test-开头(-代替底杠)；
+
+2、项目根目录创建一个Python Package，命名testcases，在包里创建一个用例test_print，用来测试输出一些参数；
+
+```python
+class TestPrint:
+    def test_one(self):
+        print("this is a test string")
+```
+
+##### 执行实例
+
+1、方式一：pythoncharm（工具）里面，命令行输入并执行：pytest；添加其他参数可以执行不同效果；
+pytest -v  输出详细信息，包括包名类名等；
+-s 打印信息；
+-vs 输出详细信息和打印信息；
+-n=2，多线程，可填其他数字，多线程比单线程用时短，可以用多个方法，sleep来验证（先安装pytest-xdist）；
+
+
+
+2、方式二：
+
+
+
+
+
+
+
 #### Locust 使用
 
 1、安装python；
