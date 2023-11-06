@@ -653,19 +653,148 @@ class TestPrint:
 
 ##### 执行实例
 
-1、方式一：pythoncharm（工具）里面，命令行输入并执行：pytest；添加其他参数可以执行不同效果；
+###### 方式一：命令行
+
+pythoncharm（工具）里面，命令行输入并执行：pytest；添加其他参数可以执行不同效果；
 pytest -v  输出详细信息，包括包名类名等；
 -s 打印信息；
 -vs 输出详细信息和打印信息；
--n=2，多线程，可填其他数字，多线程比单线程用时短，可以用多个方法，sleep来验证（先安装pytest-xdist）；
+-n=2，多线程，可填其他数字，多线程比单线程用时短，可以用多个方法，sleep来验证（先安装pytest-xdist）
+-x ，出现一个用例失败则停止测试
+--returns=2,失败重跑（先安装插件pytest-rerunfailures）
+--maxfail=2，初心几个失败则停止测试
+--html，生成html的测试报告（先安装插件pytest-html），会在当前根目录生成一个html文件，可以指定文件夹，如pytest -vs --html ./reports/result.html
+-k，指定执行哪个测试用例，如：pytest -vs -k "test_one",pytest -vs -k "test_one or two"
+
+###### 方式二：main()方法
+
+1、项目根目录下创建一个文件run.py
+
+```python
+import pytest
+
+if __name__ == '__main__':
+    pytest.main(["-vs"])
+```
+
+2、在工具里面，上述文件右键-run运行，最终执行的是指定文件testcases\test_print.py；
 
 
 
-2、方式二：
+###### 方式三：全局文件
 
+1、项目根目录创建文件pytest.ini，名字不能更改，此文件可以更改测试用例规则、命令；
 
+pytest.ini
 
+```python
+[pytest]
+#参数
+addopts = -vs -m "smoke"
+#标记
+markers=
+    smoke:冒烟测试
+```
 
+test_print.py
+
+```python
+@pytest.mark.smoke
+def test_smoke(self):
+    print("smoke")
+```
+
+##### 跳过实例
+
+1、无理由跳过
+
+pytest.ini
+
+```python
+[pytest]
+#参数
+addopts = -vs
+```
+
+test_print.py
+
+```python
+@pytest.mark.skip(reason = "无理由跳过")
+def test_one(self):
+    print("test one")
+```
+
+2、根据条件跳过
+
+```python
+workage = 10
+@pytest.mark.skipif(workage<=10,reason="根据条件跳过")
+def test_two(self):
+    # time.sleep(3)
+    print("test two")
+```
+
+##### 前置件、后置件
+
+1、在当前类写前后置件，只作用于当前类
+
+test_print.py
+
+```python
+def setup_class(self):
+    print("每个类之前执行一次")
+
+def teardown_class(self):
+    print("每个类之后执行一次")
+
+def setup_method(self):
+    print("每个用例之前执行一次")
+
+def teardown_method(self):
+    print("每个用例之后执行一次")
+```
+
+2、创建公共类包common、公共类common_uitl.py、新类test_method.py，新类和引用common类的前后置项；
+
+common_uitl.py
+
+```python
+class CommonUtil:
+    def setup_class(self):
+        print("每个类之前执行一次")
+
+    def teardown_class(self):
+        print("每个类之后执行一次")
+
+    def setup_method(self):
+        print("每个用例之前执行一次")
+
+    def teardown_method(self):
+        print("每个用例之后执行一次")
+```
+
+test_print.py
+
+```python
+import pytest
+
+from common.common_util import CommonUtil
+
+class TestPrint(CommonUtil):
+
+    def test_one(self):
+        print("test one")
+```
+
+test_method.py
+
+```python
+from common.common_util import CommonUtil
+
+class TestMethod(CommonUtil):
+    def test(self):
+        print("hello")
+```
 
 
 
