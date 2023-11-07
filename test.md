@@ -870,15 +870,47 @@ def test_fixture(self,select_sql):
 或者
 
 ```python
+import pytest
+
 def read_yaml():
     return [1,2,3]
 
-@pytest.fixture(scope="class",autouse=False,params=read_yaml())
+@pytest.fixture(scope="function",autouse=False,params=read_yaml())
 def select_sql(request):
-    print(request.param)
     print("查询数据库")
-    yield "success"
+    # 返回参数
+    yield request.param
     print("关闭数据库")
+
+class TestFixture:
+    def test_fix(self,select_sql):
+        print("fix")
+        print(select_sql)
+
+```
+
+ids，要与params配合使用，给参数加上id
+
+```python
+@pytest.fixture(scope="function",autouse=False,params=read_yaml(),ids=['no1','no2','no3'])
+```
+
+name，标记fixture名
+
+```python
+@pytest.fixture(scope="function",autouse=False,params=read_yaml(),ids=['no1','no2','no3'],name="s_sql")
+def select_sql(request):
+    print("查询数据库")
+    # 返回参数
+    yield request.param
+    print("关闭数据库")
+
+class TestFixture:
+    #起了别名，fixture的名称就会失效
+    # def test_fix(self, select_sql):
+    def test_fix(self,s_sql):
+        print("fix")
+        print(s_sql)
 ```
 
 ###### 三、作用于类
@@ -906,6 +938,10 @@ class TestPrint:
 ```
 
 ###### 四、作用package/session
+
+
+
+五、conftest，存放固件
 
 
 
