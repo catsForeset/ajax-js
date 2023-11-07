@@ -796,6 +796,117 @@ class TestMethod(CommonUtil):
         print("hello")
 ```
 
+##### fixture部分前后置项
+
+1、指定某个用例使用某个前置项
+
+test_method.py
+
+```python
+class TestPrint:
+
+    # 添加前置项标识，此功能用作前置项，scope="function"表示作用域是方法，此外还有class、package、session等
+    @pytest.fixture(scope="function")
+    def select_sql(self):
+        print("查询数据库")
+
+    def test_fixture(self,select_sql):
+        print("fixture")
+```
+
+2、自动执行
+
+test_method.py
+
+```python
+# autouse = True 自动执行（默认False），不需要引用select_sql，本类的所有方法都会执行此前项
+@pytest.fixture(scope="function",autouse=True)
+def select_sql(self):
+    print("查询数据库")
+
+def test_fixture(self):
+    print("fixture")
+
+# @pytest.mark.skip(reason="无理由跳过")
+def test_one(self):
+    # time.sleep(3)
+    # raise Exception()
+    print("test one")
+```
+
+3、后置项yield关键字
+
+test_method.py
+
+```python
+@pytest.fixture(scope="function")
+def select_sql(self):
+    print("查询数据库")
+    yield
+    print("关闭后置项")
+
+def test_fixture(self,select_sql):
+    print("fixture")
+```
+
+##### fixture进阶功能
+
+###### 一、标记前后置项
+
+###### 二、传参：
+
+```python
+@pytest.fixture(scope="function")
+def select_sql(self):
+    # yield 传参同retrun
+    # yield "success"
+    return "success"
+
+def test_fixture(self,select_sql):
+    print("fixture")
+    print(select_sql)
+```
+
+或者
+
+```python
+def read_yaml():
+    return [1,2,3]
+
+@pytest.fixture(scope="class",autouse=False,params=read_yaml())
+def select_sql(request):
+    print(request.param)
+    print("查询数据库")
+    yield "success"
+    print("关闭数据库")
+```
+
+###### 三、作用于类
+
+```python
+import pytest
+
+@pytest.fixture(scope="class")
+def select_sql():
+    print("查询数据库")
+    yield "success"
+    print("关闭数据库")
+
+# 作用于此注解下的类
+@pytest.mark.usefixtures("select_sql")
+class TestFixture:
+    def test_fix(self):
+        print("fix")
+
+# 无usefixtures注解，则不作用于此类
+class TestPrint:
+
+    def test_fixture(self):
+        print("fixture")
+```
+
+###### 四、作用package/session
+
 
 
 #### Locust 使用
