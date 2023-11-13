@@ -855,6 +855,8 @@ def test_fixture(self,select_sql):
 
 ###### 二、传参：
 
+test_print.py
+
 ```python
 @pytest.fixture(scope="function")
 def select_sql(self):
@@ -941,9 +943,93 @@ class TestPrint:
 
 
 
-五、conftest，存放固件
+##### conftest
 
+###### 一、使用
 
+1、项目根目录创建文件conftest.py（不能改名称）
+
+2、将test_print.py的fixture转移到conftest.py
+
+conftest.py
+
+```python
+import pytest
+
+def read_yaml():
+    return [1,2,3]
+
+@pytest.fixture(scope="function",autouse=False,params=read_yaml(),ids=['no1','no2','no3'],name="s_sql")
+def select_sql(request):
+    print("查询数据库")
+    # 返回参数
+    yield request.param
+    print("关闭数据库")
+```
+
+test_print.py
+
+```python
+import pytest
+
+class TestFixture:
+    #起了别名，fixture的名称就会失效
+    # def test_fix(self, select_sql):
+    def test_fix(self,s_sql):
+        print("fix")
+        print(s_sql)
+```
+
+test_method.py
+
+```python
+from common.common_util import CommonUtil
+
+# ctrl+alt+space，引用类
+class TestMethod(CommonUtil):
+    def test(self,s_sql):
+        print("test_methode")
+        print(s_sql)
+```
+
+二、使用conftest多个方法
+
+conftest.py
+
+```python
+import pytest
+# conftest.py 的使用不需要导包，在别的方法直接引用方法名如:s_sql
+
+def read_yaml():
+    return [1,2,3]
+
+@pytest.fixture(scope="function",autouse=False,params=read_yaml(),ids=['no1','no2','no3'],name="s_sql")
+def select_sql(request):
+    print("查询数据库")
+    # 返回参数
+    yield "s_sql"
+    print("关闭数据库")
+
+@pytest.fixture(scope="function",autouse=False,name="s_user")
+def select_user(request):
+    print("查询数据库")
+    # 返回参数
+    yield "s_user"
+    print("关闭数据库")
+```
+
+test_print.py
+
+```python
+import pytest
+
+class TestFixture:
+    #起了别名，fixture的名称就会失效
+    # def test_fix(self, select_sql):
+    def test_fix(self,s_sql,s_user):
+        print("fix")
+        print(s_sql+"+"+s_user)
+```
 
 #### Locust 使用
 
