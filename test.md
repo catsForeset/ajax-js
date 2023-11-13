@@ -992,7 +992,7 @@ class TestMethod(CommonUtil):
         print(s_sql)
 ```
 
-二、使用conftest多个方法
+二、使用conftest的多个方法
 
 conftest.py
 
@@ -1030,6 +1030,42 @@ class TestFixture:
         print("fix")
         print(s_sql+"+"+s_user)
 ```
+
+三、使用多个conftest
+
+1、创建一个包testcases/user_manage，里面创建一个conftest，一个文件test_user
+
+conftest.py
+
+```python
+@pytest.fixture(scope="function",autouse=False,name="login")
+def login(request):
+    print("用户登录")
+    yield "success"
+```
+
+testcases/user_manage/conftest.py
+
+```python
+import pytest
+
+@pytest.fixture(scope="function",autouse=False,name="m_user")
+def manage_user(request):
+    yield "m_user"
+```
+
+testcases/user_manage/test_user
+
+```python
+class TestUser:
+    def test_user(self,login,m_user):
+        print("使用两个conftest：先登录后操作用户")
+        print(login+"+"+m_user)
+```
+
+
+
+
 
 #### Locust 使用
 
